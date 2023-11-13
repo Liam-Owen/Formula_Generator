@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+ 
+  <style>
+  body {
+    font-family: 'Arial', sans-serif;
+    padding: 10px;
+    text-align: center; /* Center the content */
+  }
+
+  h2 {
+    color: #333;
+  }
+
+  input {
+    width: 80%; /* Make the input box slightly bigger */
+    height: 300px
+    margin-bottom: 100px;
+    padding: 8px; /* Adjust padding for better appearance */
+  }
+
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px; /* Adjust padding for a larger button */
+    border: none;
+    cursor: pointer;
+    /* Center the button */
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    box-sizing: border-box;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  #userInputOutput, #formulaOutput {
+    margin-top: 20px;
+  }
+
+  #loadingIndicator {
+    display: none;
+    margin-top: 10px;
+    text-align: center;
+  }
+</style>
+
+</head>
+<body>
+  <h2>Formula Generator</h2>
+  <input type="text" id="userInput" placeholder="Describe what you want">
+  <button onclick="generateFormula()">Generate Formula</button>
+  <div id="loadingIndicator">Getting your formula, please wait...</div>
+  <div id="userInputOutput"></div>
+  <div id="formulaOutput"></div>
+
+<script>
+    function generateFormula() {
+    var userInput = document.getElementById("userInput").value;
+    document.getElementById("loadingIndicator").style.display = "block";
+
+    // Clear the old formula content
+    document.getElementById("formulaOutput").textContent = "";
+
+    google.script.run.withSuccessHandler(updateFormulaOutput).generateFormula(userInput);
+    // Clear the input field
+    document.getElementById("userInput").value = "";
+  }
+
+  function updateFormulaOutput(formula) {
+    document.getElementById("loadingIndicator").style.display = "none";
+    var formulaOutput = document.getElementById("formulaOutput");
+    formulaOutput.textContent = "Generated Formula: " + formula;
+  }
+</script>
+</body>
+</html>
+
+
